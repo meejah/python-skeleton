@@ -4,3 +4,6 @@ venv
 *.egg-info/
 .coverage
 doc/_build
+build/
+dist/
+htmlcov/
