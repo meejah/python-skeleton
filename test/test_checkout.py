@@ -30,6 +30,11 @@ def test_single_item(checkout):
     assert r['apple'].count == 1
 
 
+def test_missing_item(checkout):
+    with pytest.raises(RuntimeError):
+        checkout.add_purchase('a feeling of dread')
+
+
 def test_out_of_order_items(checkout):
     # execute, also testing file-like input
     checkout.add_purchases(StringIO('orange\napple\norange\n'))
