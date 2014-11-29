@@ -46,6 +46,18 @@ def test_dinner_pricer_before(dt):
     assert peritem == total
 
 
+@patch('checkout.price.datetime')
+def test_daily_special(dt):
+    p = price.daily_special(100, 0, 0.50)  # 50% off mondays
+    dt.today.return_value = datetime(2014, 11, 24, 14, 0, 0)
+    # november 24, 2014 is a monday
+
+    (peritem, total) = p(count=1)
+
+    assert total == 50
+    assert peritem == total
+
+
 @pytest.mark.parametrize(
     "count,expected_total,msg", [
         (1, 100, 'no savings (total $1)'),
