@@ -1,13 +1,17 @@
-from zope.interface import Interface
+from zope.interface import Interface, Attribute
 
 
 class IPricer(Interface):
-    def __call__(self, **kwargs):
-        '''Currently, only "count" may exist in the kwargs. This is how many
-        of the current item are being purchased in the current
-        transaction.
+    description = Attribute('A human-readable summary of the pricing scheme.')
 
-        This method should return a 2-tuple: the per-item price in
-        cents, expressed as an integer followed by the total price
-        (cents, as integer).
+    def __call__(count, **kwargs):
+        '''
+        This method should return a 2-tuple: the per-item price in cents,
+        expressed as an integer followed by the total price (cents, as
+        integer). The per-item price may be None if that doesn't make
+        sense.
+
+        :param count: Number of the current item are being purchased
+        in the current transaction.
+
         '''

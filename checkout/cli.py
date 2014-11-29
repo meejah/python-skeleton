@@ -19,7 +19,7 @@ def print_catalog(ctx, param, value):
     keys = catalog.keys()
     keys.sort()
     for k in keys:
-        click.echo("%20s  %s" % (k, catalog[k].__doc__))
+        click.echo("%20s  %s" % (k, catalog[k].description))
     ctx.exit()
 
 
@@ -81,7 +81,7 @@ def format_receipt(receipt):
         dots = '.' * (width - len(name))
         price_str = '$%.2f' % (purchase.total_price / 100.0)
         print '%3dx %s %s %8s (%s)' % (purchase.count, name, dots,
-                                       price_str, catalog[name].__doc__)
+                                       price_str, catalog[name].description)
     print ' ' * 47 + '-' * 8
 
     label = 'Total'

@@ -1,5 +1,17 @@
 import pytest
+from zope.interface.verify import verifyObject
+
 from checkout import price
+from checkout.interface import IPricer
+
+
+def test_ipricer():
+    # verifyObject throws if there's a problem
+    verifyObject(IPricer, price.cheap_after_dinner(0, 0, 0))
+    verifyObject(IPricer, price.static(100))
+    verifyObject(IPricer, price.daily_special(0, 0, 0))
+    verifyObject(IPricer, price.buy_n_get_m_free(2, 1, 0))
+    # XXX could mark.parametrize this too
 
 
 @pytest.mark.parametrize(
