@@ -1,4 +1,5 @@
 import pytest
+from StringIO import StringIO
 
 from checkout import price
 from checkout import Transaction
@@ -30,10 +31,8 @@ def test_single_item(checkout):
 
 
 def test_out_of_order_items(checkout):
-    # execute
-    checkout.add_purchase('orange')
-    checkout.add_purchase('apple')
-    checkout.add_purchase('orange')
+    # execute, also testing file-like input
+    checkout.add_purchases(StringIO('orange\napple\norange\n'))
     r = checkout.total()
 
     # assert
