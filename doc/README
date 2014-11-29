@@ -1,0 +1,7 @@
+This directory structure was created by running "sphinx-quickstart ."
+and keeping most of the defaults.
+
+"autodoc" and "viewcode" plugins were added, and no Windows build file
+was created. There are several differences made to conf.py on top of
+this; see "conf.py-quickstart-diff" in this directory.
+
