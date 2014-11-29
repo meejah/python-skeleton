@@ -5,8 +5,8 @@ Prices can change frequently and have arbitrarly complicated rules for
 determining an individual item's price.
 
 In-code configuration is achieved with a dict mapping item-names
-(strings) to a an object that implements IPricer. There are helpers in
-sub-module "price" to aid instantiating these.
+(strings) to a an object that implements :class:`checkout.interface.IPricer`.
+There are helpers in sub-module "price" to aid instantiating these.
 '''
 
 # Opinion: a flatter namespace is nice, but it's preferable to have

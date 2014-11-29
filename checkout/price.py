@@ -1,13 +1,17 @@
 '''
 This module contains a number of helper functions that instantiate
-objects implmenting ``IPricer``
+objects implmenting :class:`checkout.interface.IPricer`
 
 This module is intended to be used like so::
 
-   from checkout import price, Product
-   p = Product("apple", price.static(100))
-   p = Product("orange", price.buy_n_get_m_free(3, 2))
+    from checkout import price
+    catalog = {
+        "apple": price.static(100),
+        "orange": price.buy_n_get_m_free(100, 3, 2),
+    }
 
+This means apples always cost $1 and oranges are $1 each, but if you
+buy 3 you get 2 free.
 '''
 
 from datetime import datetime
@@ -89,7 +93,10 @@ def buy_n_get_m_free(price, n, m):
 
     # here, we implement the IPricer interface (a Functor pattern) not
     # as a class but as a function directly, to demonstrate
-    # zope.interface's "directlyProvides" method
+    # zope.interface's "directlyProvides" functionality and a Python
+    # closure. Note how we satisfy the "description" attribute by
+    # adding it to the method object; that can be done in- or out-side
+    # of the inner method.
     def buy_n_pricer(count, **kw):
         groups = count / (n + m)
         leftover = count % (n + m)

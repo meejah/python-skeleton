@@ -30,20 +30,27 @@ Of course, you can also activate the virtualenv
 a Debian or Ubuntu machine, you'll need to have python, pip and virtualenv
 installed first::
 
-  apt-get install python-pip python-virtualenv
+   apt-get install python-pip python-virtualenv
+
+All Makefile targets:
+
+  * ``make test``: use `py.test <http://pytest.org>`_ to run unit tests
+  * ``make doc``: build documentation using `Sphinx <http://sphinx-doc.org/>`_ (visit docs with ``sensible-browser ./doc/_build/html/index.html``)
+  * ``make pep8``: run pep8 on all code
+  * ``make venv``: create a virtualenv called ``venv`` (if it's not already there)
 
 
+  
 Usage and Configuration
 -----------------------
 
 Simply cat files through the ``checkout`` tool; it reads all of stdin.
 To demonstrate usage of `Click <http://click.pocoo.org/>`_ for
 command-line options, you may also pass a ``--json`` option to get
-JSON-formatted output.
+JSON-formatted output or ``--catalog`` for a list of all products.
 
 If you want to change the available items or prices, edit the file
-``checkout/catalog.py``. You can get an alphabetical list of available
-items with ``checkout catalog``
+``checkout/cli.py`` near the top.
 
 
 Libraries Used, and Why
