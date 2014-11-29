@@ -80,3 +80,11 @@ fixture and paramterization examples.
 Twisted! Making your duck-typing a little more explicit with
 interfaces is nice. ``zope.interface`` also provides some other
 goodies. See ``checkout/interface.py`` for a very simple example.
+
+
+What Is This Good For
+---------------------
+
+The idea here is that you clone this, delete the ``.git`` directory,
+rename all the "checkout" references to "your-project-name" and you
+should have a good starting-point for a new Python project.
