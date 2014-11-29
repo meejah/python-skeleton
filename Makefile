@@ -15,4 +15,4 @@ pep8: venv
 	./venv/bin/pep8 checkout/*.py test/*.py setup.py
 
 test: venv
-	./venv/bin/py.test --verbose test/*.py
+	./venv/bin/py.test --verbose --cov checkout --cov-report term-missing test/*.py
