@@ -21,6 +21,7 @@ setup(
     author='meejah',
     author_email='meejah@meejah.ca',
     license='MIT',
+    url='https://github.com/meejah/python-skeleton',
 
     install_requires=open('requirements.txt').readlines(),
     extras_require=dict(
@@ -41,11 +42,12 @@ setup(
         'Programming Language :: Python :: 2.7',
         'Topic :: Software Development :: Libraries :: Python Modules',
     ],
+
     packages=["checkout"],
+    data_files=[('share/checkout', ['README.rst'])],
     entry_points=dict(
         console_scripts=[
             'checkout=checkout.cli:cli'
         ]
     ),
-    url='https://github.com/meejah/python-skeleton',
 )
