@@ -1,7 +1,7 @@
 pytest==2.6.4
 pep8==1.5.7
 Sphinx==1.2.3
+alabaster==0.6.2
 repoze.sphinx.autointerface==0.7.1
 pytest-cov==1.8.1
 mock==1.0.1
-

@@ -10,7 +10,7 @@ takes a line-by-line list of purchases on stdin and outputs an
 itemized receipt on stdout.
 
 Configuration (prices, specials, promotions, etc) is achieved in the
-code (checkout/catalog.py).
+code (``checkout/catalog.py``).
 
 Installation
 ------------
