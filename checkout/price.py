@@ -50,7 +50,7 @@ def cheap_after_dinner(price_before, price_after, dinnertime):
 
         def __call__(self, count, **kw):
             if datetime.today().hour >= dinnertime:
-                return (price_before, price_after * count)
+                return (price_after, price_after * count)
             return (price_before, price_before * count)
 
     return AfterDinnerPricer()

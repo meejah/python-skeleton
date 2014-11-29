@@ -14,6 +14,18 @@ def test_ipricer():
     # XXX could mark.parametrize this too
 
 
+def test_dinner_pricer():
+    # setup
+    p = price.cheap_after_dinner(100, 50, 0)
+
+    # execute
+    (peritem, total) = p(count=1)
+
+    # assert
+    assert total == 50
+    assert peritem == total
+
+
 @pytest.mark.parametrize(
     "count,expected_total,msg", [
         (1, 100, 'no savings (total $1)'),
