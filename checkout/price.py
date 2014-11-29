@@ -64,17 +64,20 @@ def daily_special(price, day_of_week, discount):
     :param day_of_week: 0-6 (monday through sunday)
     :param discount: percent of discount, 0.0 -> 1.0
     '''
-    def daily_special_pricer(count, **kw):
-        myprice = price
-        if datetime.today().weekday() == day_of_week:
-            myprice = int(price * discount)
-        return (myprice, myprice * count)
     weekdays = ['mon', 'tue', 'wed', 'thrs', 'fri', 'sat', 'sun']
-    daily_special_pricer.description = '$%.2f each, %d%% off %s' % \
-        (price / 100.0, (discount * 100), weekdays[day_of_week])
 
-    directlyProvides(daily_special_pricer, IPricer)
-    return daily_special_pricer
+    @implementer(IPricer)
+    class DailySpecialPricer(object):
+        description = '$%.2f each, %d%% off %s' % \
+            (price / 100.0, (discount * 100), weekdays[day_of_week])
+
+        def __call__(self, count, **kw):
+            myprice = price
+            if datetime.today().weekday() == day_of_week:
+                myprice = int(price * discount)
+            return (myprice, myprice * count)
+
+    return DailySpecialPricer()
 
 
 def buy_n_get_m_free(price, n, m):
