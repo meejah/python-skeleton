@@ -36,8 +36,8 @@ def test_missing_item(checkout):
 
 
 def test_out_of_order_items(checkout):
-    # execute, also testing file-like input
-    checkout.add_purchases(StringIO('orange\napple\norange\n'))
+    # execute, also testing file-like input and blank line
+    checkout.add_purchases(StringIO('orange\napple\n\norange\n'))
     r = checkout.total()
 
     # assert

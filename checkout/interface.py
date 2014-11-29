@@ -4,7 +4,7 @@ from zope.interface import Interface, Attribute
 class IPricer(Interface):
     description = Attribute('A human-readable summary of the pricing scheme.')
 
-    def __call__(count, **kwargs):
+    def __call__(count, **kwargs):  # pragma: nocover
         '''
         This method should return a 2-tuple: the per-item price in cents,
         expressed as an integer followed by the total price (cents, as

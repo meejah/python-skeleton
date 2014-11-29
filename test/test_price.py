@@ -52,7 +52,7 @@ def test_dinner_pricer_error():
 
 
 @patch('checkout.price.datetime')
-def test_daily_special(dt):
+def test_daily_special_on_day(dt):
     p = price.daily_special(100, 0, 0.50)  # 50% off mondays
     dt.today.return_value = datetime(2014, 11, 24, 14, 0, 0)
     # november 24, 2014 is a monday
@@ -60,6 +60,18 @@ def test_daily_special(dt):
     (peritem, total) = p(count=1)
 
     assert total == 50
+    assert peritem == total
+
+
+@patch('checkout.price.datetime')
+def test_daily_special_off_day(dt):
+    p = price.daily_special(100, 1, 0.50)  # 50% off tuesdays
+    dt.today.return_value = datetime(2014, 11, 24, 14, 0, 0)
+    # november 24, 2014 is a monday
+
+    (peritem, total) = p(count=1)
+
+    assert total == 100
     assert peritem == total
 
 
