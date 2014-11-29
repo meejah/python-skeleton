@@ -7,7 +7,6 @@ http://click.pocoo.org
 # usually: standard library; third-party libraries; "local" modules or
 # libraries.
 
-from sys import stdin, exit
 from json import dumps
 
 import click
@@ -60,7 +59,7 @@ def cli(json):
     '''
     try:
         co = Transaction(catalog)
-        co.add_purchases(stdin)
+        co.add_purchases(click.get_text_stream('stdin'))
         receipt = co.total()
 
         if json:
