@@ -1,4 +1,6 @@
 *.pyc
 *~
 venv
-checkout.egg-info/
+*.egg-info/
+.coverage
+doc/_build
