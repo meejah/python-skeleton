@@ -19,6 +19,10 @@ def test_cli_checkout_json():
 
     assert result.exit_code == 0
     data = json.loads(result.output)
+    assert 'apple' in data
+    assert 'orange' in data
+    assert 'order_total' in data
+    assert data['order_total'] == 200
 
 
 def test_cli_checkout_error():
