@@ -17,7 +17,7 @@ from interface import IPricer
 
 def static(price):
     '''
-    Returns an object that implements IPricer with a static price.
+    Returns a :class:`checkout.interface.IPricer` with a static price.
     '''
 
     @implementer(IPricer)
@@ -31,9 +31,14 @@ def static(price):
 
 def cheap_after_dinner(price_before, price_after, dinnertime):
     '''
-    Returns an object mplementing IPricer which gives a different
+    Returns a :class:`checkout.interface.IPricer` which gives a different
     price after dinnertime.
+
+    :param dinnertime: time for dinner, 0-23 (in hours).
     '''
+    if dinnertime < 0 or dinnertime > 23:
+        raise RuntimeError("Dinnertime is hours, in 24-hour format.")
+
     @implementer(IPricer)
     class AfterDinnerPricer(object):
         description = "$%.2f before %02d00 hours, $%.2f after" %\
@@ -49,8 +54,11 @@ def cheap_after_dinner(price_before, price_after, dinnertime):
 
 def daily_special(price, day_of_week, discount):
     '''
-    Returns an object that implements IPricer which is discounted a
+    Returns a :class:`checkout.interface.IPricer` which is discounted a
     certain amount on particular day-of-the-week.
+
+    :param day_of_week: 0-6 (monday through sunday)
+    :param discount: percent of discount, 0.0 -> 1.0
     '''
     def daily_special_pricer(count, **kw):
         myprice = price
@@ -67,7 +75,7 @@ def daily_special(price, day_of_week, discount):
 
 def buy_n_get_m_free(price, n, m):
     '''
-    Returns an object that implements IPricer which does (a version
+    Returns a :class:`checkout.interface.IPricer` which does (a version
     of) "buy N get M free". For the border-case of wishing to purchase
     fewer than you're entitled to, we opt for "screw the customer",
     basically. Alternatively, we could provide a way to update the
@@ -79,6 +87,9 @@ def buy_n_get_m_free(price, n, m):
     if m >= n:
         raise RuntimeError("Can't buy %d and get %d free." % (n, m))
 
+    # here, we implement the IPricer interface (a Functor pattern) not
+    # as a class but as a function directly, to demonstrate
+    # zope.interface's "directlyProvides" method
     def buy_n_pricer(count, **kw):
         groups = count / (n + m)
         leftover = count % (n + m)

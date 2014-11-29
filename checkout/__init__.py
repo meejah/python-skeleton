@@ -9,14 +9,15 @@ In-code configuration is achieved with a dict mapping item-names
 sub-module "price" to aid instantiating these.
 '''
 
-import price
-import interface
-
 # Opinion: a flatter namespace is nice, but it's preferable to have
 # classes (or tightly coupled classes or functions) in their own
 # files. So, we bring in the indiviual classes to this namespace.
 from .purchase import Purchase
 from .transaction import Transaction
+
+# ...but we can still provide a sub-namespace, of course
+import price
+import interface
 
 # FIXME catalog should go elsewhere
 catalog = {

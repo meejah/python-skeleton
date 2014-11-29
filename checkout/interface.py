@@ -12,6 +12,6 @@ class IPricer(Interface):
         sense.
 
         :param count: Number of the current item are being purchased
-        in the current transaction.
+            in the current transaction.
 
         '''

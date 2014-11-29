@@ -8,11 +8,11 @@ class Transaction(object):
     '''
 
     def __init__(self, rules):
-        '''
-        :param rules: the current pricing rules
-        '''
         self.rules = rules
-        self.purchases = {}  # item name -> count
+        '''Pricing rules for this transaction.'''
+
+        self.purchases = {}
+        '''dict: item name -> count'''
 
     def add_purchases(self, filelike):
         '''
