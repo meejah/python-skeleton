@@ -45,6 +45,6 @@ class Transaction(object):
 
         order = dict()
         for (name, count) in self.purchases.iteritems():
-            (per_item, total) = self.rules[name](count=count)
+            (per_item, total) = self.rules[name](count)
             order[name] = Purchase(name, count, per_item, total)
         return order

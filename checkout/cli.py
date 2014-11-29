@@ -3,22 +3,39 @@ Define the command-line interface using the Click library by Armin Ronacher.
 http://click.pocoo.org
 '''
 
-import click
-import json
+# Opinion: I like grouping imports together, and have 3 categories
+# usually: standard library; third-party libraries; "local" modules or
+# libraries.
+
 from sys import stdin, exit
 from json import dumps
-from checkout import Transaction, catalog
+
+import click
+
+from checkout import Transaction, price
+
+'''
+For simplicity, we just statically encode our product catalog here
+instead of, e.g., loading it from a file or database or whatever.
+'''
+catalog = dict(
+    apple=price.static(100),  # apples at $1, always
+    orange=price.buy_n_get_m_free(100, 2, 1),  # orange $1, buy 2 get 1 free
+    happiness=price.daily_special(1000, 3, 0.50),  # 50% off on thursdays!
+    ennui=price.cheap_after_dinner(1000, 50, 18),  # change price at 6pm
+)
 
 
 def print_catalog(ctx, param, value):
     '''
     Helper to dump the current catalog.
+
+    Shows how a "click" callback can work (this is for the --catalog
+    option).
     '''
     if not value or ctx.resilient_parsing:
         return
-    keys = catalog.keys()
-    keys.sort()
-    for k in keys:
+    for k in sorted(catalog.keys()):
         click.echo("%20s  %s" % (k, catalog[k].description))
     ctx.exit()
 
