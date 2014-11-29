@@ -46,6 +46,11 @@ def test_dinner_pricer_before(dt):
     assert peritem == total
 
 
+def test_dinner_pricer_error():
+    with pytest.raises(RuntimeError):
+        price.cheap_after_dinner(100, 50, 24)
+
+
 @patch('checkout.price.datetime')
 def test_daily_special(dt):
     p = price.daily_special(100, 0, 0.50)  # 50% off mondays
@@ -56,6 +61,11 @@ def test_daily_special(dt):
 
     assert total == 50
     assert peritem == total
+
+
+def test_buy_n_error():
+    with pytest.raises(RuntimeError):
+        price.buy_n_get_m_free(100, 1, 2)
 
 
 @pytest.mark.parametrize(
