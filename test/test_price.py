@@ -1,4 +1,6 @@
 import pytest
+from datetime import datetime
+from mock import patch, Mock
 from zope.interface.verify import verifyObject
 
 from checkout import price
@@ -14,15 +16,33 @@ def test_ipricer():
     # XXX could mark.parametrize this too
 
 
-def test_dinner_pricer():
+@patch('checkout.price.datetime')
+def test_dinner_pricer_after(dt):
     # setup
-    p = price.cheap_after_dinner(100, 50, 0)
+    p = price.cheap_after_dinner(100, 50, 22)
+    dt.today.return_value = datetime(2014, 11, 29, 23, 0, 0)
+    # 23 hours is after 22 hours, so we should get the after-dinner price
 
     # execute
     (peritem, total) = p(count=1)
 
     # assert
     assert total == 50
+    assert peritem == total
+
+
+@patch('checkout.price.datetime')
+def test_dinner_pricer_before(dt):
+    # setup
+    p = price.cheap_after_dinner(100, 50, 18)
+    dt.today.return_value = datetime(2014, 11, 29, 14, 0, 0)
+    # 14 hours is before 18 hours, so we should get the before-dinner price
+
+    # execute
+    (peritem, total) = p(count=1)
+
+    # assert
+    assert total == 100
     assert peritem == total
 
 
