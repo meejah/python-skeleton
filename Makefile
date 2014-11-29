@@ -16,3 +16,6 @@ pep8: venv
 
 test: venv
 	./venv/bin/py.test --verbose --cov checkout --cov-report term-missing test/*.py
+
+coverage: venv
+	./venv/bin/py.test --verbose --cov checkout --cov-report html test/*.py
